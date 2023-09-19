@@ -8,6 +8,8 @@ export const getSchema = (model?: Model) =>
     surname: stringValidator(model?.isSurnameRequired),
     age: numberValidator(model?.isAgeRequired),
     city: stringValidator(model?.isCityRequired),
+    // ! This is not working because it only get properties from
+    // ! siblings but not from the parent.
     address: yup.object({
       street: stringValidator().when('name', {
         is: 'Gustavo',
@@ -19,23 +21,3 @@ export const getSchema = (model?: Model) =>
 const schema = getSchema()
 
 export type User = yup.InferType<typeof schema>
-
-const schemaTest = getSchema({
-  isNameRequired: true,
-  isSurnameRequired: true,
-  isAgeRequired: true,
-  isCityRequired: true,
-  isStreetRequired: true,
-})
-
-console.log(
-  schemaTest.validateSync({
-    name: 'Gustavo',
-    surname: 'Muñoz',
-    age: 43,
-    city: 'Madrid',
-    address: {
-      street: 'Calle de los Dolores, 42',
-    },
-  } as User)
-)

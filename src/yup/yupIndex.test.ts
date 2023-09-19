@@ -27,14 +27,14 @@ const streetRequiredModel: Model = {
 }
 
 describe('The schema validation for the allOptionalModel', () => {
-  test.todo('should work if the schema is empty', () => {
+  test('should work if the schema is empty', () => {
     const data: User = {
       address: {},
     }
-    expect(getSchema(allOptionalModel).validateSync(data)).toEqual({})
+    expect(getSchema(allOptionalModel).isValidSync(data)).toBe(true)
   })
 
-  test.todo('should work if all properties are null', () => {
+  test('should work if all properties are null', () => {
     const data: User = {
       name: null,
       surname: null,
@@ -44,10 +44,10 @@ describe('The schema validation for the allOptionalModel', () => {
         street: null,
       },
     }
-    expect(getSchema(allOptionalModel).validateSync(data)).toEqual({})
+    expect(getSchema(allOptionalModel).isValidSync(data)).toBe(true)
   })
 
-  test.todo('should work if all the properties are falsy', () => {
+  test('should work if all the properties are falsy', () => {
     const data: User = {
       name: '',
       surname: '',
@@ -57,19 +57,19 @@ describe('The schema validation for the allOptionalModel', () => {
         street: '',
       },
     }
-    expect(getSchema(allOptionalModel).validateSync(data)).toEqual({})
+    expect(getSchema(allOptionalModel).isValidSync(data)).toBe(true)
   })
 })
 
 describe('The schema validation for the allRequiredModel', () => {
-  test.todo('should fail if the schema is empty', () => {
+  test('should fail if the schema is empty', () => {
     const data: User = {
       address: {},
     }
-    expect(getSchema(allRequiredModel).validateSync(data)).toEqual({})
+    expect(getSchema(allRequiredModel).isValidSync(data)).toBe(false)
   })
 
-  test.todo('should fail if all properties are null', () => {
+  test('should fail if all properties are null', () => {
     const data: User = {
       name: null,
       surname: null,
@@ -79,10 +79,10 @@ describe('The schema validation for the allRequiredModel', () => {
         street: null,
       },
     }
-    expect(getSchema(allRequiredModel).validateSync(data)).toEqual({})
+    expect(getSchema(allRequiredModel).isValidSync(data)).toBe(false)
   })
 
-  test.todo('should fail if all the properties are falsy', () => {
+  test('should fail if all the properties are falsy', () => {
     const data: User = {
       name: '',
       surname: '',
@@ -92,7 +92,7 @@ describe('The schema validation for the allRequiredModel', () => {
         street: '',
       },
     }
-    expect(getSchema(allRequiredModel).validateSync(data)).toEqual({})
+    expect(getSchema(allRequiredModel).isValidSync(data)).toBe(false)
   })
 })
 
@@ -112,7 +112,7 @@ describe('The schema validation for the streetRequiredModel', () => {
           street: 'Calle de los Dolores de Cabeza, 42',
         },
       }
-      expect(getSchema(streetRequiredModel).validateSync(data)).toEqual({})
+      expect(getSchema(streetRequiredModel).isValidSync(data)).toBe(true)
     }
   )
 
@@ -128,7 +128,7 @@ describe('The schema validation for the streetRequiredModel', () => {
           street: null,
         },
       }
-      expect(getSchema(streetRequiredModel).validateSync(data)).toEqual({})
+      expect(getSchema(streetRequiredModel).isValidSync(data)).toBe(false)
     }
   )
 
@@ -144,7 +144,7 @@ describe('The schema validation for the streetRequiredModel', () => {
           street: null,
         },
       }
-      expect(getSchema(streetRequiredModel).validateSync(data)).toEqual({})
+      expect(getSchema(streetRequiredModel).isValidSync(data)).toBe(true)
     }
   )
 })
